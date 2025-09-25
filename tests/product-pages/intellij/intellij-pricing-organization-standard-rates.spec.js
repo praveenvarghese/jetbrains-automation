@@ -1,24 +1,24 @@
-// Import test fixture and page objects
 import { test } from "@playwright/test";
 import { retryExpect } from "../../../utils/retryExpect.js";
 import { HomePage } from "../../../pages/HomePage.js";
 import { IntelliJPage } from "../../../pages/IntelliJPage.js";
 import { PricingPage } from "../../../pages/PricingPage.js";
 
-test("User is navigated to pricing page from home page", async ({ page }) => {
-  // Arrange
+test("Verify IntelliJ organization pricing displays correct rates for yearly and monthly billing cycles", async ({
+  page,
+}) => {
   const homePage = new HomePage(page);
   const intelliJPage = new IntelliJPage(page);
   const pricingPage = new PricingPage(page);
 
-  // Act
+  // Navigate to IntelliJ pricing page
   await homePage.navigateToHome();
   await homePage.navigateToIntelliJIDEAPage();
   await intelliJPage.verifyIntelliJPage();
   await intelliJPage.navigateToPricingPage();
   await pricingPage.verifyPricingPage();
 
-  // Assertions with retryExpect
+  // Verify organization use is selected and yearly billing is default
   await retryExpect(() => pricingPage.getSelectedSubscriptionOptions()).toEqual(
     "For Organizations"
   );
@@ -26,16 +26,18 @@ test("User is navigated to pricing page from home page", async ({ page }) => {
     "Yearly billing"
   );
 
-  let pricing = await pricingPage.getPricingDetails();
-  await retryExpect(() => pricing).toEqual({
+  // Validate yearly organization pricing structure
+  await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
     price: "€599.00",
     period: "per user, per year",
     vatPrice: "incl. VAT €736.77",
   });
 
+  // Switch to monthly billing and verify pricing updates
   await pricingPage.navigateToMonthlyBilling();
-  pricing = await pricingPage.getPricingDetails();
-  await retryExpect(() => pricing).toEqual({
+
+  // Validate monthly organization pricing matches expected rates
+  await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
     period: "per user, per month",
     price: "€59.90",
     vatPrice: "incl. VAT €73.68",

@@ -1,20 +1,20 @@
-// Import test fixture and page objects
 import { test } from "@playwright/test";
 import { retryExpect } from "../../../../utils/retryExpect.js";
 import { HomePage } from "../../../../pages/HomePage.js";
 import { StorePage } from "../../../../pages/StorePage.js";
 
-test("User is navigated to pricing page from home page", async ({ page }) => {
-  // Arrange
+test("Verify PhpStorm organization pricing displays correct rates for yearly and monthly billing cycles", async ({
+  page,
+}) => {
   const homePage = new HomePage(page);
   const storePage = new StorePage(page);
 
-  // Act
+  // Navigate to store organization page
   await homePage.navigateToHome();
   await homePage.navigateToStoreOrganizationPage();
   await retryExpect(() => storePage.verifyStorePage()).toBe(true);
 
-  // Assertions with retryExpect
+  // Verify organization use is selected and yearly billing is default
   await retryExpect(() => storePage.getSelectedSubscriptionOptions()).toEqual(
     "For Organizations"
   );
@@ -23,18 +23,21 @@ test("User is navigated to pricing page from home page", async ({ page }) => {
     "Yearly billing"
   );
 
+  // Validate yearly organization pricing for PhpStorm
   await retryExpect(() => storePage.getPriceDetails("PhpStorm")).toEqual({
     basePrice: "€249.00",
     vatPrice: "incl. VAT €306.27",
     period: "per user, per year",
   });
 
+  // Switch to monthly billing and verify pricing updates
   await storePage.changeBillingOption("Monthly billing");
 
   await retryExpect(() => storePage.getSelectedBillingCycle()).toContain(
     "Monthly billing"
   );
 
+  // Validate monthly organization pricing for PhpStorm
   await retryExpect(() => storePage.getPriceDetails("PhpStorm")).toEqual({
     basePrice: "€24.90",
     vatPrice: "incl. VAT €30.63",

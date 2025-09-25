@@ -1,17 +1,17 @@
-// Import test fixture and page objects
 import { test } from "@playwright/test";
 import { retryExpect } from "../../../utils/retryExpect.js";
 import { HomePage } from "../../../pages/HomePage.js";
 import { IntelliJPage } from "../../../pages/IntelliJPage.js";
 import { PricingPage } from "../../../pages/PricingPage.js";
 
-test("User is navigated to pricing page from home page", async ({ page }) => {
-  // Arrange
+test("Verify IntelliJ individual pricing displays correct rates for yearly and monthly billing cycles", async ({
+  page,
+}) => {
   const homePage = new HomePage(page);
   const intelliJPage = new IntelliJPage(page);
   const pricingPage = new PricingPage(page);
 
-  // Act
+  // Navigate to IntelliJ pricing page
   await homePage.navigateToHome();
   await homePage.navigateToIntelliJIDEAPage();
   await intelliJPage.verifyIntelliJPage();
@@ -19,7 +19,7 @@ test("User is navigated to pricing page from home page", async ({ page }) => {
   await pricingPage.verifyPricingPage();
   await pricingPage.navigateToIndividualUseTab();
 
-  // Assertions with retryExpect
+  // Verify individual use is selected and yearly billing is default
   await retryExpect(() => pricingPage.getSelectedSubscriptionOptions()).toEqual(
     "For Individual Use"
   );
@@ -27,38 +27,20 @@ test("User is navigated to pricing page from home page", async ({ page }) => {
     "Yearly billing"
   );
 
-  let pricing = await pricingPage.getPricingDetails();
-  await retryExpect(() => pricing).toEqual({
+  // Validate first-year pricing structure
+  await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
     period: "first year",
     price: "€169.00",
     vatPrice: "incl. VAT €207.87",
   });
 
+  // Switch to monthly billing and verify pricing updates
   await pricingPage.navigateToMonthlyBilling();
-  pricing = await pricingPage.getPricingDetails();
 
-  await retryExpect(() => pricing).toEqual({
+  // Validate monthly pricing matches expected rates
+  await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
     period: "per month",
     price: "€16.90",
     vatPrice: "incl. VAT €20.79",
   });
 });
-
-async function validateAppAndCategory(page, categoryName, appName) {
-  // Find the category container that has our category name
-  const categoryContainer = page
-    .locator(".applications-list__category")
-    .filter({
-      has: page.locator(".application-category__name-label", {
-        hasText: categoryName,
-      }),
-    });
-
-  // Within this category container, find the app
-  const appHeading = categoryContainer.locator(".application__name", {
-    hasText: appName,
-  });
-
-  // Assert the app is visible in this category
-  await expect(appHeading).toBeVisible();
-}

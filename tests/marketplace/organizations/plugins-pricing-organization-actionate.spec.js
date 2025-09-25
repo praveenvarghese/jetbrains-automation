@@ -1,25 +1,22 @@
-// Import test fixture and page objects
 import { test } from "@playwright/test";
 import { retryExpect } from "../../../utils/retryExpect.js";
 import { HomePage } from "../../../pages/HomePage.js";
 import { MarketplacePluginsPage } from "../../../pages/MarketplacePluginsPage.js";
 
-test("User can navigate and interact with marketplace plugins page", async ({
+test("Verify Actionate plugin pricing for organizations displays correct rates for yearly and monthly billing", async ({
   page,
 }) => {
-  // Arrange
   const homePage = new HomePage(page);
   const marketplacePluginsPage = new MarketplacePluginsPage(page);
 
-  // Act
+  // Navigate to marketplace plugins page
   await homePage.navigateToHome();
-  // Add navigation method to marketplace plugins page
   await homePage.navigateToMarketplacePluginsPage();
   await retryExpect(() =>
     marketplacePluginsPage.verifyMarketplacePluginsPage()
   ).toBe(true);
 
-  // Assertions with retryExpected - Test subscription option switching
+  // Verify organization use is selected by default and yearly billing is default
   await retryExpect(() =>
     marketplacePluginsPage.getSelectedSubscriptionOption()
   ).toContain("For Organizations");
@@ -28,6 +25,7 @@ test("User can navigate and interact with marketplace plugins page", async ({
     marketplacePluginsPage.getSelectedBillingCycle()
   ).toContain("Yearly billing");
 
+  // Validate yearly organization pricing for Actionate plugin
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
@@ -36,12 +34,14 @@ test("User can navigate and interact with marketplace plugins page", async ({
     period: "per user, per year",
   });
 
+  // Switch to monthly billing and verify pricing updates
   await marketplacePluginsPage.changeBillingOption("Monthly billing");
-  await retryExpect(() =>
+  await retryExpected(() =>
     marketplacePluginsPage.getSelectedBillingCycle()
   ).toContain("Monthly billing");
 
-  await retryExpect(() =>
+  // Validate monthly organization pricing for Actionate plugin
+  await retryExpected(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
     basePrice: "€2.00",

@@ -1,30 +1,28 @@
-// Import test fixture and page objects
 import { test } from "@playwright/test";
 import { retryExpect } from "../../../utils/retryExpect.js";
 import { HomePage } from "../../../pages/HomePage.js";
 import { MarketplacePluginsPage } from "../../../pages/MarketplacePluginsPage.js";
 
-test("User can navigate and interact with marketplace plugins page", async ({
+test("Verify Actionate plugin pricing for individual users displays correct rates for yearly and monthly billing", async ({
   page,
 }) => {
-  // Arrange
   const homePage = new HomePage(page);
   const marketplacePluginsPage = new MarketplacePluginsPage(page);
 
-  // Act
+  // Navigate to marketplace plugins page
   await homePage.navigateToHome();
-  // Add navigation method to marketplace plugins page
   await homePage.navigateToMarketplacePluginsPage();
   await retryExpect(() =>
     marketplacePluginsPage.verifyMarketplacePluginsPage()
   ).toBe(true);
 
+  // Switch to individual use and verify selection
   await marketplacePluginsPage.changeSubscriptionOption("For Individual Use");
-
   await retryExpect(() =>
     marketplacePluginsPage.getSelectedSubscriptionOption()
   ).toContain("For Individual Use");
 
+  // Validate yearly individual pricing for Actionate plugin
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
@@ -33,13 +31,13 @@ test("User can navigate and interact with marketplace plugins page", async ({
     period: "per year",
   });
 
-  // Test billing cycle switching
-
+  // Switch to monthly billing and verify pricing updates
   await marketplacePluginsPage.changeBillingOption("Monthly billing");
   await retryExpect(() =>
     marketplacePluginsPage.getSelectedBillingCycle()
   ).toContain("Monthly billing");
 
+  // Validate monthly individual pricing for Actionate plugin
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
