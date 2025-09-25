@@ -38,53 +38,6 @@ export class PricingPage {
     return await billingElement.innerText();
   }
 
-  // async getPricingDetails() {
-  //   // Use existing method to check subscription type
-  //   const selectedOption = await this.getSelectedSubscriptionOptions();
-  //   const isIndividualUse = selectedOption.includes("For Individual Use");
-
-  //   // Select the correct product card based on subscription type
-  //   let card;
-  //   let priceIndex;
-
-  //   if (isIndividualUse) {
-  //     // Individual Use: Card 11 (second IntelliJ card), Price index 0
-  //     card = this.page
-  //       .locator('[data-test="product-card-IntelliJ-IDEA-Ultimate"]')
-  //       .nth(1);
-  //     priceIndex = 0;
-  //   } else {
-  //     // Organizations: Card 0 (first IntelliJ card), Price index 0
-  //     card = this.page
-  //       .locator('[data-test="product-card-IntelliJ-IDEA-Ultimate"]')
-  //       .first();
-  //     priceIndex = 0;
-  //   }
-
-  //   await card.waitFor({ state: "visible" });
-
-  //   // Get price from the correct element
-  //   const price = await card
-  //     .locator('[data-test="product-price"] .nowrap')
-  //     .nth(priceIndex)
-  //     .innerText();
-
-  //   // Get period and VAT price
-  //   const period = await card
-  //     .locator('[data-test="product-price-title"]')
-  //     .first()
-  //     .innerText();
-
-  //   const vatPrice = await card
-  //     .locator(
-  //       '[data-test="product-price-block"] .formatted-price-composition p'
-  //     )
-  //     .first()
-  //     .innerText();
-
-  //   return { price, period, vatPrice };
-  // }
-
   async getPricingDetails() {
     const selectedOption = await this.getSelectedSubscriptionOptions();
     const isIndividualUse = selectedOption.includes("For Individual Use");
