@@ -43,3 +43,22 @@ test("User is navigated to pricing page from home page", async ({ page }) => {
     vatPrice: "incl. VAT €20.79",
   });
 });
+
+async function validateAppAndCategory(page, categoryName, appName) {
+  // Find the category container that has our category name
+  const categoryContainer = page
+    .locator(".applications-list__category")
+    .filter({
+      has: page.locator(".application-category__name-label", {
+        hasText: categoryName,
+      }),
+    });
+
+  // Within this category container, find the app
+  const appHeading = categoryContainer.locator(".application__name", {
+    hasText: appName,
+  });
+
+  // Assert the app is visible in this category
+  await expect(appHeading).toBeVisible();
+}

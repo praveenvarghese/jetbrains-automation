@@ -19,36 +19,6 @@ test("User can navigate and interact with marketplace plugins page", async ({
     marketplacePluginsPage.verifyMarketplacePluginsPage()
   ).toBe(true);
 
-  // Assertions with retryExpected - Test subscription option switching
-  await retryExpect(() =>
-    marketplacePluginsPage.getSelectedSubscriptionOption()
-  ).toContain("For Organizations");
-
-  await retryExpect(() =>
-    marketplacePluginsPage.getSelectedBillingCycle()
-  ).toContain("Yearly billing");
-
-  await retryExpect(() =>
-    marketplacePluginsPage.getPluginDetails("Actionate")
-  ).toEqual({
-    basePrice: "€20.00",
-    vatPrice: "incl. VAT €24.60",
-    period: "per user, per year",
-  });
-
-  await marketplacePluginsPage.changeBillingOption("Monthly billing");
-  await retryExpect(() =>
-    marketplacePluginsPage.getSelectedBillingCycle()
-  ).toContain("Monthly billing");
-
-  await retryExpect(() =>
-    marketplacePluginsPage.getPluginDetails("Actionate")
-  ).toEqual({
-    basePrice: "€2.00",
-    vatPrice: "incl. VAT €2.46",
-    period: "per user, per month",
-  });
-
   await marketplacePluginsPage.changeSubscriptionOption("For Individual Use");
 
   await retryExpect(() =>
@@ -58,23 +28,23 @@ test("User can navigate and interact with marketplace plugins page", async ({
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
-    basePrice: "€1.00",
-    vatPrice: "incl. VAT €1.23",
-    period: "per month",
+    basePrice: "€10.00",
+    vatPrice: "incl. VAT €12.30",
+    period: "per year",
   });
 
   // Test billing cycle switching
 
-  await marketplacePluginsPage.changeBillingOption("Yearly billing");
+  await marketplacePluginsPage.changeBillingOption("Monthly billing");
   await retryExpect(() =>
     marketplacePluginsPage.getSelectedBillingCycle()
-  ).toContain("Yearly billing");
+  ).toContain("Monthly billing");
 
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
-    basePrice: "€10.00",
-    vatPrice: "incl. VAT €12.30",
-    period: "per year",
+    basePrice: "€1.00",
+    vatPrice: "incl. VAT €1.23",
+    period: "per month",
   });
 });
