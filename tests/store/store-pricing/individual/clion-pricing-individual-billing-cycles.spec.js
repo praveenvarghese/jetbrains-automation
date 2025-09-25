@@ -1,9 +1,9 @@
 // Import test fixture and page objects
 import { test } from "@playwright/test";
-import { retryExpect } from "../../../utils/retryExpect.js";
-import { HomePage } from "../../../pages/HomePage.js";
-import { StorePage } from "../../../pages/StorePage.js";
-import { PricingPage } from "../../../pages/PricingPage.js";
+import { retryExpect } from "../../../../utils/retryExpect.js";
+import { HomePage } from "../../../../pages/HomePage.js";
+import { StorePage } from "../../../../pages/StorePage.js";
+import { PricingPage } from "../../../../pages/PricingPage.js";
 
 test("User is navigated to pricing page from home page", async ({ page }) => {
   // Arrange
