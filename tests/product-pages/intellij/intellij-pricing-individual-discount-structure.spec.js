@@ -1,8 +1,8 @@
 import { test } from "@playwright/test";
-import { retryExpect } from "../../../utils/retryExpect.js";
-import { HomePage } from "../../../pages/HomePage.js";
-import { IntelliJPage } from "../../../pages/IntelliJPage.js";
-import { PricingPage } from "../../../pages/PricingPage.js";
+import { retryExpect } from "../../../lib/utils/retryExpect.js";
+import { HomePage } from "../../../lib/pages/HomePage.js";
+import { IntelliJPage } from "../../../lib/pages/IntelliJPage.js";
+import { PricingPage } from "../../../lib/pages/PricingPage.js";
 
 test("Verify IntelliJ individual pricing displays correct rates for yearly and monthly billing cycles", async ({
   page,

@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
-import { retryExpect } from "../../../utils/retryExpect.js";
-import { HomePage } from "../../../pages/HomePage.js";
-import { MarketplacePluginsPage } from "../../../pages/MarketplacePluginsPage.js";
+import { retryExpect } from "../../../lib/utils/retryExpect.js";
+import { HomePage } from "../../../lib/pages/HomePage.js";
+import { MarketplacePluginsPage } from "../../../lib/pages/MarketplacePluginsPage.js";
 
 test("Verify Actionate plugin pricing for organizations displays correct rates for yearly and monthly billing", async ({
   page,

@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
-import { retryExpect } from "../../../../utils/retryExpect.js";
-import { HomePage } from "../../../../pages/HomePage.js";
-import { StorePage } from "../../../../pages/StorePage.js";
+import { retryExpect } from "../../../../lib/utils/retryExpect.js";
+import { HomePage } from "../../../../lib/pages/HomePage.js";
+import { StorePage } from "../../../../lib/pages/StorePage.js";
 
 test("Verify PhpStorm organization pricing displays correct rates for yearly and monthly billing cycles", async ({
   page,
