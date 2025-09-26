@@ -30,8 +30,8 @@ test("Verify IntelliJ individual pricing displays correct rates for yearly and m
   // Validate first-year pricing structure
   await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
     period: "first year",
-    price: "€169.00",
-    vatPrice: "incl. VAT €207.87",
+    price: process.env.INTELLIJ_INDIVIDUAL_YEARLY_BASE_PRICE,
+    vatPrice: process.env.INTELLIJ_INDIVIDUAL_YEARLY_VAT_PRICE,
   });
 
   // Switch to monthly billing and verify pricing updates
@@ -40,7 +40,7 @@ test("Verify IntelliJ individual pricing displays correct rates for yearly and m
   // Validate monthly pricing matches expected rates
   await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
     period: "per month",
-    price: "€16.90",
-    vatPrice: "incl. VAT €20.79",
+    price: process.env.INTELLIJ_INDIVIDUAL_MONTHLY_BASE_PRICE,
+    vatPrice: process.env.INTELLIJ_INDIVIDUAL_MONTHLY_VAT_PRICE,
   });
 });

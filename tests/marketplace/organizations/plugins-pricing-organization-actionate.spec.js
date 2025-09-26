@@ -29,8 +29,8 @@ test("Verify Actionate plugin pricing for organizations displays correct rates f
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
-    basePrice: "€20.00",
-    vatPrice: "incl. VAT €24.60",
+    basePrice: process.env.ACTIONATE_ORGANIZATION_YEARLY_BASE_PRICE,
+    vatPrice: process.env.ACTIONATE_ORGANIZATION_YEARLY_VAT_PRICE,
     period: "per user, per year",
   });
 
@@ -44,8 +44,8 @@ test("Verify Actionate plugin pricing for organizations displays correct rates f
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
-    basePrice: "€2.00",
-    vatPrice: "incl. VAT €2.46",
+    basePrice: process.env.ACTIONATE_ORGANIZATION_MONTHLY_BASE_PRICE,
+    vatPrice: process.env.ACTIONATE_ORGANIZATION_MONTHLY_VAT_PRICE,
     period: "per user, per month",
   });
 });
