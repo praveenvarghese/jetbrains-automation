@@ -36,12 +36,12 @@ test("Verify Actionate plugin pricing for organizations displays correct rates f
 
   // Switch to monthly billing and verify pricing updates
   await marketplacePluginsPage.changeBillingOption("Monthly billing");
-  await retryExpected(() =>
+  await retryExpect(() =>
     marketplacePluginsPage.getSelectedBillingCycle()
   ).toContain("Monthly billing");
 
   // Validate monthly organization pricing for Actionate plugin
-  await retryExpected(() =>
+  await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
     basePrice: "€2.00",

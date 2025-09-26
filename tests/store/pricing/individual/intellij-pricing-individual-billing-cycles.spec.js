@@ -32,7 +32,7 @@ test("Verify IntelliJ IDEA Ultimate organization pricing displays correct rates 
   // Switch to monthly billing and verify IntelliJ monthly pricing
   await storePage.changeBillingOption("Monthly billing");
 
-  await retryExpected(() => storePage.getSelectedBillingCycle()).toContain(
+  await retryExpect(() => storePage.getSelectedBillingCycle()).toContain(
     "Monthly billing"
   );
 
@@ -51,7 +51,7 @@ test("Verify IntelliJ IDEA Ultimate organization pricing displays correct rates 
     "Yearly billing"
   );
 
-  await retryExpected(() =>
+  await retryExpect(() =>
     storePage.getPriceDetails("IntelliJ IDEA Ultimate")
   ).toEqual({
     basePrice: "€599.00",

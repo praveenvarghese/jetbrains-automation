@@ -21,7 +21,7 @@ test("Verify CLion organization pricing displays correct rates for yearly and mo
 
   // Switch to organization subscription and verify selection
   await storePage.changeSubscriptionOption("For Organizations");
-  await retryExpected(() => storePage.getSelectedSubscriptionOptions()).toEqual(
+  await retryExpect(() => storePage.getSelectedSubscriptionOptions()).toEqual(
     "For Organizations"
   );
 
