@@ -15,13 +15,13 @@ test("Verify CLion organization pricing displays correct rates for yearly and mo
   await retryExpect(() => storePage.verifyStorePage()).toBe(true);
 
   // Verify individual use is initially selected
-  await retryExpect(() => storePage.getSelectedSubscriptionOptions()).toEqual(
+  await retryExpect(() => storePage.getSelectedSubscriptionOption()).toEqual(
     "For Individual Use"
   );
 
   // Switch to organization subscription and verify selection
   await storePage.changeSubscriptionOption("For Organizations");
-  await retryExpect(() => storePage.getSelectedSubscriptionOptions()).toEqual(
+  await retryExpect(() => storePage.getSelectedSubscriptionOption()).toEqual(
     "For Organizations"
   );
 

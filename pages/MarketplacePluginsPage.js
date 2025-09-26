@@ -1,8 +1,10 @@
+// pages/MarketplacePluginsPage.js
 export class MarketplacePluginsPage {
   constructor(page) {
     this.page = page;
   }
 
+  /** Verifies marketplace plugins page is loaded by checking main heading */
   async verifyMarketplacePluginsPage() {
     return await this.page
       .locator("h1")
@@ -10,12 +12,14 @@ export class MarketplacePluginsPage {
       .isVisible();
   }
 
+  /** Gets the currently selected subscription option text */
   async getSelectedSubscriptionOption() {
     return await this.page
       .locator('[data-test="tab tab-selected"]')
       .textContent();
   }
 
+  /** Changes subscription option to specified type */
   async changeSubscriptionOption(option) {
     await this.page
       .locator('[data-test="tab-list"] button')
@@ -23,12 +27,15 @@ export class MarketplacePluginsPage {
       .click();
   }
 
+  /** Gets the currently selected billing cycle text */
   async getSelectedBillingCycle() {
     return await this.page
       .locator('[data-test="switcher"] button[class*="_selected_"]')
       .first()
       .textContent();
   }
+
+  /** Changes billing cycle to specified option */
   async changeBillingOption(option) {
     await this.page
       .locator('[data-test="switcher"]')
@@ -36,6 +43,7 @@ export class MarketplacePluginsPage {
       .click();
   }
 
+  /** Gets pricing details for specified plugin including base price, VAT, and period */
   async getPluginDetails(pluginName) {
     // Find the plugin card that's currently visible (not in hidden content switcher block)
     const pluginCard = this.page

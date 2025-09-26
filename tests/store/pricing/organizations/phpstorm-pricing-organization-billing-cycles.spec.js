@@ -11,11 +11,11 @@ test("Verify PhpStorm organization pricing displays correct rates for yearly and
 
   // Navigate to store organization page
   await homePage.navigateToHome();
-  await homePage.navigateToStoreOrganizationPage();
+  await homePage.navigateToStoreTeamsAndOrganizationsPage();
   await retryExpect(() => storePage.verifyStorePage()).toBe(true);
 
   // Verify organization use is selected and yearly billing is default
-  await retryExpect(() => storePage.getSelectedSubscriptionOptions()).toEqual(
+  await retryExpect(() => storePage.getSelectedSubscriptionOption()).toEqual(
     "For Organizations"
   );
 

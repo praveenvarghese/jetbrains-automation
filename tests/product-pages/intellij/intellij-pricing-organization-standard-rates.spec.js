@@ -13,13 +13,13 @@ test("Verify IntelliJ organization pricing displays correct rates for yearly and
 
   // Navigate to IntelliJ pricing page
   await homePage.navigateToHome();
-  await homePage.navigateToIntelliJIDEAPage();
-  await intelliJPage.verifyIntelliJPage();
+  await homePage.navigateToIntelliJPage();
+  await retryExpect(() => intelliJPage.verifyIntelliJPage()).toBe(true);
   await intelliJPage.navigateToPricingPage();
   await pricingPage.verifyPricingPage();
 
   // Verify organization use is selected and yearly billing is default
-  await retryExpect(() => pricingPage.getSelectedSubscriptionOptions()).toEqual(
+  await retryExpect(() => pricingPage.getSelectedSubscriptionOption()).toEqual(
     "For Organizations"
   );
   await retryExpect(() => pricingPage.getSelectedBillingCycle()).toContain(
