@@ -39,8 +39,8 @@ test("Verify IntelliJ IDEA Ultimate organization pricing displays correct rates 
   await retryExpect(() =>
     storePage.getPriceDetails("IntelliJ IDEA Ultimate")
   ).toEqual({
-    basePrice: process.env.INTELLIJ_ORGANIZATION_MONTHLY_BASE_PRICE,
-    vatPrice: process.env.INTELLIJ_ORGANIZATION_MONTHLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.INTELLIJ_ORGANIZATION_MONTHLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.INTELLIJ_ORGANIZATION_MONTHLY_VAT_PRICE,
     period: "per user, per month",
   });
 
@@ -54,8 +54,8 @@ test("Verify IntelliJ IDEA Ultimate organization pricing displays correct rates 
   await retryExpect(() =>
     storePage.getPriceDetails("IntelliJ IDEA Ultimate")
   ).toEqual({
-    basePrice: process.env.INTELLIJ_ORGANIZATION_YEARLY_BASE_PRICE,
-    vatPrice: process.env.INTELLIJ_ORGANIZATION_YEARLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.INTELLIJ_ORGANIZATION_YEARLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.INTELLIJ_ORGANIZATION_YEARLY_VAT_PRICE,
     period: "per user, per year",
   });
 });

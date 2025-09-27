@@ -1,11 +1,6 @@
-// @ts-check
 import { defineConfig, devices } from "@playwright/test";
-import dotenv from "dotenv";
-
-// Load pricing data globally
-dotenv.config({
-  path: "./test-data/jetbrains-pricing-data.env",
-});
+import { PRICING_DATA } from "./test-data/pricing-data.js";
+global.PRICING_DATA = PRICING_DATA;
 
 /**
  * @see https://playwright.dev/docs/test-configuration

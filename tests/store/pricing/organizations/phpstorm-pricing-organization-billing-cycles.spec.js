@@ -25,8 +25,8 @@ test("Verify PhpStorm organization pricing displays correct rates for yearly and
 
   // Validate yearly organization pricing for PhpStorm
   await retryExpect(() => storePage.getPriceDetails("PhpStorm")).toEqual({
-    basePrice: process.env.PHPSTORM_ORGANIZATION_YEARLY_BASE_PRICE,
-    vatPrice: process.env.PHPSTORM_ORGANIZATION_YEARLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.PHPSTORM_ORGANIZATION_YEARLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.PHPSTORM_ORGANIZATION_YEARLY_VAT_PRICE,
     period: "per user, per year",
   });
 
@@ -39,8 +39,8 @@ test("Verify PhpStorm organization pricing displays correct rates for yearly and
 
   // Validate monthly organization pricing for PhpStorm
   await retryExpect(() => storePage.getPriceDetails("PhpStorm")).toEqual({
-    basePrice: process.env.PHPSTORM_ORGANIZATION_MONTHLY_BASE_PRICE,
-    vatPrice: process.env.PHPSTORM_ORGANIZATION_MONTHLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.PHPSTORM_ORGANIZATION_MONTHLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.PHPSTORM_ORGANIZATION_MONTHLY_VAT_PRICE,
     period: "per user, per month",
   });
 });
