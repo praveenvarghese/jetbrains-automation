@@ -37,8 +37,8 @@ test("Verify CLion organization pricing displays correct rates for yearly and mo
   );
 
   await retryExpect(() => storePage.getPriceDetails("CLion")).toEqual({
-    basePrice: process.env.CLION_ORGANIZATION_MONTHLY_BASE_PRICE,
-    vatPrice: process.env.CLION_ORGANIZATION_MONTHLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.CLION_ORGANIZATION_MONTHLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.CLION_ORGANIZATION_MONTHLY_VAT_PRICE,
     period: "per user, per month",
   });
 
@@ -50,8 +50,8 @@ test("Verify CLion organization pricing displays correct rates for yearly and mo
   );
 
   await retryExpect(() => storePage.getPriceDetails("CLion")).toEqual({
-    basePrice: process.env.CLION_ORGANIZATION_YEARLY_BASE_PRICE,
-    vatPrice: process.env.CLION_ORGANIZATION_YEARLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.CLION_ORGANIZATION_YEARLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.CLION_ORGANIZATION_YEARLY_VAT_PRICE,
     period: "per user, per year",
   });
 });

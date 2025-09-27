@@ -28,9 +28,9 @@ test("Verify IntelliJ organization pricing displays correct rates for yearly and
 
   // Validate yearly organization pricing structure
   await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
-    price: process.env.INTELLIJ_ORGANIZATION_YEARLY_BASE_PRICE,
+    price: global.PRICING_DATA.INTELLIJ_ORGANIZATION_YEARLY_BASE_PRICE,
     period: "per user, per year",
-    vatPrice: process.env.INTELLIJ_ORGANIZATION_YEARLY_VAT_PRICE,
+    vatPrice: global.PRICING_DATA.INTELLIJ_ORGANIZATION_YEARLY_VAT_PRICE,
   });
 
   // Switch to monthly billing and verify pricing updates
@@ -39,7 +39,7 @@ test("Verify IntelliJ organization pricing displays correct rates for yearly and
   // Validate monthly organization pricing matches expected rates
   await retryExpect(() => pricingPage.getPricingDetails()).toEqual({
     period: "per user, per month",
-    price: process.env.INTELLIJ_ORGANIZATION_MONTHLY_BASE_PRICE,
-    vatPrice: process.env.INTELLIJ_ORGANIZATION_MONTHLY_VAT_PRICE,
+    price: global.PRICING_DATA.INTELLIJ_ORGANIZATION_MONTHLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.INTELLIJ_ORGANIZATION_MONTHLY_VAT_PRICE,
   });
 });

@@ -31,6 +31,9 @@ npx playwright test tests/store/
 
 # Generate report
 npx playwright show-report
+
+# Run all the test parallely
+npx playwright test --retries=0 --workers=3
 ```
 
 ## Project structure

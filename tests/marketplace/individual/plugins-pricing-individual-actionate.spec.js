@@ -26,8 +26,8 @@ test("Verify Actionate plugin pricing for individual users displays correct rate
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
-    basePrice: process.env.ACTIONATE_INDIVIDUAL_YEARLY_BASE_PRICE,
-    vatPrice: process.env.ACTIONATE_INDIVIDUAL_YEARLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.ACTIONATE_INDIVIDUAL_YEARLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.ACTIONATE_INDIVIDUAL_YEARLY_VAT_PRICE,
     period: "per year",
   });
 
@@ -41,8 +41,8 @@ test("Verify Actionate plugin pricing for individual users displays correct rate
   await retryExpect(() =>
     marketplacePluginsPage.getPluginDetails("Actionate")
   ).toEqual({
-    basePrice: process.env.ACTIONATE_INDIVIDUAL_MONTHLY_BASE_PRICE,
-    vatPrice: process.env.ACTIONATE_INDIVIDUAL_MONTHLY_VAT_PRICE,
+    basePrice: global.PRICING_DATA.ACTIONATE_INDIVIDUAL_MONTHLY_BASE_PRICE,
+    vatPrice: global.PRICING_DATA.ACTIONATE_INDIVIDUAL_MONTHLY_VAT_PRICE,
     period: "per month",
   });
 });
